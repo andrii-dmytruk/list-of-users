@@ -17,7 +17,6 @@ import { styled, withStyles } from '@mui/styles';
 import { Person } from '../../types/Person';
 
 
-
 type Props = {
   people: Person[];
   onDelete: (person: Person) => void;

@@ -3,7 +3,15 @@ import { sortPeople } from '../../helpers/sortPeople';
 import { Person } from '../../types/Person';
 import { SortTypes } from '../../types/sortTypes';
 
-const initPeople: Person[] = [];
+let peopleFromStorage;
+
+if (localStorage.getItem('people')) {
+  peopleFromStorage = JSON.parse(localStorage.getItem('people') as string);
+} else {
+  localStorage.setItem('people', JSON.stringify([]));
+}
+
+const initPeople: Person[] = peopleFromStorage || [];
 
 const peopleSlice = createSlice({
   name: 'people',

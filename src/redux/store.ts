@@ -7,6 +7,12 @@ const store = configureStore({
   },
 });
 
+store.subscribe(() => {
+  const { people } = store.getState();
+
+  localStorage.setItem('people', JSON.stringify(people));
+});
+
 export default store;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
