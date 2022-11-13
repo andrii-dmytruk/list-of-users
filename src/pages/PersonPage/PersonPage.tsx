@@ -23,6 +23,7 @@ export const PersonPage = React.memo(function PersonPage() {
   const [nameValue, setNameValue] = useState<string>('');
   const [ageValue, setAgeValue] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [nameError, setNameError] = useState<boolean>(false);
 
   useEffect(() => {
     if (id.length) {
@@ -48,6 +49,12 @@ export const PersonPage = React.memo(function PersonPage() {
   const handleApplyBtn = async () => {
     const name = nameValue;
     const age = +ageValue;
+
+    if (!name.length) {
+      setNameError(true);
+      return;
+    }
+
     if (currentPerson) {
       dispatch(actions.update({...currentPerson, name, age}));
     } else {
@@ -78,6 +85,7 @@ export const PersonPage = React.memo(function PersonPage() {
       <div className="inputs">
         <TextField
           required
+          error={nameError}
           id="outlined-required"
           label="Name"
           value={nameValue}
