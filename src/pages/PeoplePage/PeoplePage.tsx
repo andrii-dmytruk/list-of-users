@@ -9,20 +9,9 @@ import './PeoplePage.scss';
 import { SortTypes } from '../../types/sortTypes';
 import { Person } from '../../types/Person';
 import { PeopleTable } from '../../components/PeopleTable';
-import { sortPeople } from '../../helpers/sortPeople';
 import { createPerson } from '../../helpers/createPerson';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { actions } from '../../redux/features/people';
-
-
-const people: Person[] = [
-  createPerson('Oleg', 30, 'Active'),
-  createPerson('Artem', 41, 'Active'),
-  createPerson('Vlad', 32, 'Active'),
-  createPerson('Denis', 45, 'Active'),
-  createPerson('Anya', 10, 'Active'),
-  createPerson('Zara', 60, 'Active'),
-];
 
 
 export const PeoplePage = React.memo(function PeoplePage() {
@@ -30,7 +19,6 @@ export const PeoplePage = React.memo(function PeoplePage() {
   const sortedPeople = useAppSelector(state => state.people);
 
   const [sortBy, setSortBy] = useState<SortTypes>(SortTypes.date);
-
 
 
   useEffect(() => {
@@ -45,7 +33,16 @@ export const PeoplePage = React.memo(function PeoplePage() {
 
     setSortBy(sortType);
   };
-  
+
+  const handleAddPersonButton = async () => {
+    const newPerson = await createPerson('Oleg', 30);
+    dispatch(actions.add(newPerson));
+  };
+
+  const handleDeletePersonButton = (person: Person) => {
+    dispatch(actions.delete(person));
+  };
+   
   return (
     <>
       <div className="tablePage">
@@ -88,13 +85,13 @@ export const PeoplePage = React.memo(function PeoplePage() {
             variant="contained"
             color="success"
             startIcon={<AddIcon />}
-            
+            onClick={handleAddPersonButton}
           >
             Add new person
           </Button>
         </Stack>
 
-        <PeopleTable people={sortedPeople} />
+        <PeopleTable people={sortedPeople} onDelete={handleDeletePersonButton} />
       </div>
     </>
   );

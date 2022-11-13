@@ -20,10 +20,12 @@ import { Person } from '../../types/Person';
 
 type Props = {
   people: Person[];
+  onDelete: (person: Person) => void;
 }
 
 export const PeopleTable = React.memo(function PeopleTable({
   people,
+  onDelete,
 }: Props) {
   const StyledTableRow = styled(TableRow)(() => ({
     '&:nth-of-type(even)': {
@@ -75,7 +77,6 @@ export const PeopleTable = React.memo(function PeopleTable({
                 <SVG
                   src={person.avatar}
                   width={40}
-                  height="auto"
                 />
               </TableCell>
               <TableCell align="left">{person.name}</TableCell>
@@ -90,7 +91,10 @@ export const PeopleTable = React.memo(function PeopleTable({
                   <IconButton aria-label="delete">
                     <EditIcon color="info" />
                   </IconButton>
-                  <IconButton aria-label="delete">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => onDelete(person)}
+                  >
                     <DeleteIcon color="error" />
                   </IconButton>
                 </Stack>

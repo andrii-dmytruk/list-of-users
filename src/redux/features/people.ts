@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createPerson } from '../../helpers/createPerson';
 import { sortPeople } from '../../helpers/sortPeople';
 import { Person } from '../../types/Person';
 import { SortTypes } from '../../types/sortTypes';
@@ -21,14 +20,14 @@ const peopleSlice = createSlice({
         date,
         name,
         age,
-        status,
       } = action.payload;
-      const newPeople = people.filter(person => person.date !== date);
-      const changedPerson = createPerson(name, age, status);
+      const changePerson = people.find(person => person.date === date);
 
-      newPeople.push(changedPerson);
+      if (changePerson) {
+        changePerson.name = name;
+        changePerson.age = age;
+      }
 
-      return newPeople;
     },
     sort: (people, action: PayloadAction<SortTypes>) => sortPeople(people, action.payload),
   }

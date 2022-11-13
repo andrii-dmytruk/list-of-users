@@ -2,6 +2,6 @@ export interface Person {
   avatar: string,
   name: string,
   age: number,
-  status: 'Active' | '-',
+  status: string,
   date: number,
 }
