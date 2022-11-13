@@ -12,6 +12,7 @@ import { PeopleTable } from '../../components/PeopleTable';
 import { createPerson } from '../../helpers/createPerson';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { actions } from '../../redux/features/people';
+import { NavLink } from 'react-router-dom';
 
 
 export const PeoplePage = React.memo(function PeoplePage() {
@@ -34,65 +35,61 @@ export const PeoplePage = React.memo(function PeoplePage() {
     setSortBy(sortType);
   };
 
-  const handleAddPersonButton = async () => {
-    const newPerson = await createPerson('Oleg', 30);
-    dispatch(actions.add(newPerson));
-  };
-
   const handleDeletePersonButton = (person: Person) => {
     dispatch(actions.delete(person));
   };
    
   return (
     <>
-      <div className="tablePage">
-        <h1 className="title">People Table</h1>
+      <h1 className="title">People Table</h1>
+      <Stack
+        direction="row"
+        marginBottom="20px"
+        justifyContent="space-between"
+      >
         <Stack
+          spacing={2}
           direction="row"
-          marginBottom="20px"
-          justifyContent="space-between"
+          alignItems="center"
         >
-          <Stack
-            spacing={2}
-            direction="row"
-            alignItems="center"
+          <span className="secondary-text">Sort By:</span>
+          <Button
+            variant={sortBy === SortTypes.name ? 'contained' : 'outlined'}
+            onClick={() => handleSortButtonClick(SortTypes.name)}
           >
-            <span className="secondary-text">Sort By:</span>
-            <Button
-              variant={sortBy === SortTypes.name ? 'contained' : 'outlined'}
-              onClick={() => handleSortButtonClick(SortTypes.name)}
-            >
             Name
-            </Button>
-            <Button
-              variant={sortBy === SortTypes.age ? 'contained' : 'outlined'}
-              onClick={() => handleSortButtonClick(SortTypes.age)}
-            >
+          </Button>
+          <Button
+            variant={sortBy === SortTypes.age ? 'contained' : 'outlined'}
+            onClick={() => handleSortButtonClick(SortTypes.age)}
+          >
             Age
-            </Button>
-            {sortBy !== SortTypes.date && (
-              <Button
-                variant="text"
-                color="error"
-                onClick={() => setSortBy(SortTypes.date)}
-              >
+          </Button>
+          {sortBy !== SortTypes.date && (
+            <Button
+              variant="text"
+              color="error"
+              onClick={() => setSortBy(SortTypes.date)}
+            >
             Clear
-              </Button>
-            )}
-          </Stack>
+            </Button>
+          )}
+        </Stack>
 
+        <NavLink
+          to="new-person"
+        >
           <Button
             variant="contained"
             color="success"
             startIcon={<AddIcon />}
-            onClick={handleAddPersonButton}
           >
             Add new person
           </Button>
-        </Stack>
+        </NavLink>
+      </Stack>
 
-        <PeopleTable people={sortedPeople} onDelete={handleDeletePersonButton} />
-      </div>
+      <PeopleTable people={sortedPeople} onDelete={handleDeletePersonButton} />
     </>
   );
 });

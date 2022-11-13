@@ -15,6 +15,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import SVG from 'react-inlinesvg';
 import { styled, withStyles } from '@mui/styles';
 import { Person } from '../../types/Person';
+import { NavLink } from 'react-router-dom';
 
 
 type Props = {
@@ -87,9 +88,13 @@ export const PeopleTable = React.memo(function PeopleTable({
                   alignItems="center"
                   spacing={0}
                 >
-                  <IconButton aria-label="delete">
-                    <EditIcon color="info" />
-                  </IconButton>
+                  <NavLink
+                    to={`edit-person/${person.date}`}
+                  >
+                    <IconButton aria-label="delete">
+                      <EditIcon color="info" />
+                    </IconButton>
+                  </NavLink>
                   <IconButton
                     aria-label="delete"
                     onClick={() => onDelete(person)}
