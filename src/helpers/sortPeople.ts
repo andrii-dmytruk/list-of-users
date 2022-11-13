@@ -7,8 +7,8 @@ export function sortPeople(people: Person[], sortBy: SortTypes) {
     return [...people].sort((a, b) => a.name.localeCompare(b.name));
   case SortTypes.age:
     return [...people].sort((a, b) => a.age - b.age);
-  case SortTypes.id:
-    return [...people].sort((a, b) => a.id - b.id);
+  case SortTypes.date:
+    return [...people].sort((a, b) => a.date - b.date);
   default:
     return [...people];
   }

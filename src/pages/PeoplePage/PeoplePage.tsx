@@ -4,39 +4,42 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 
+
 import './PeoplePage.scss';
 import { SortTypes } from '../../types/sortTypes';
 import { Person } from '../../types/Person';
 import { PeopleTable } from '../../components/PeopleTable';
 import { sortPeople } from '../../helpers/sortPeople';
+import { createPerson } from '../../helpers/createPerson';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { actions } from '../../redux/features/people';
 
-
-
-function createData(id: number, avatar: string, name: string, age: number, status: 'Active' | '-'){
-  return { id, avatar, name, age, status };
-}
 
 const people: Person[] = [
-  createData(1, 'avatar', 'Oleg', 30, 'Active'),
-  createData(2, 'avatar', 'Artem', 41, 'Active'),
-  createData(5, 'avatar', 'Vlad', 32, 'Active'),
-  createData(3, 'avatar', 'Denis', 45, 'Active'),
-  createData(8, 'avatar', 'Anya', 10, 'Active'),
-  createData(6, 'avatar', 'Zara', 60, 'Active'),
+  createPerson('Oleg', 30, 'Active'),
+  createPerson('Artem', 41, 'Active'),
+  createPerson('Vlad', 32, 'Active'),
+  createPerson('Denis', 45, 'Active'),
+  createPerson('Anya', 10, 'Active'),
+  createPerson('Zara', 60, 'Active'),
 ];
 
 
 export const PeoplePage = React.memo(function PeoplePage() {
-  const [sortBy, setSortBy] = useState<SortTypes>(SortTypes.id);
-  const [sortedPeople, setSortedPeople] = useState<Person[]>(sortPeople(people, sortBy));
+  const dispatch = useAppDispatch();
+  const sortedPeople = useAppSelector(state => state.people);
+
+  const [sortBy, setSortBy] = useState<SortTypes>(SortTypes.date);
+
+
 
   useEffect(() => {
-    setSortedPeople(sortPeople(sortedPeople, sortBy));
+    dispatch(actions.sort(sortBy));
   }, [sortBy]);
 
   const handleSortButtonClick = (sortType: SortTypes) => {
     if (sortBy === sortType) {
-      setSortBy(SortTypes.id);
+      setSortBy(SortTypes.date);
       return;
     }
 
@@ -70,11 +73,11 @@ export const PeoplePage = React.memo(function PeoplePage() {
             >
             Age
             </Button>
-            {sortBy !== SortTypes.id && (
+            {sortBy !== SortTypes.date && (
               <Button
                 variant="text"
                 color="error"
-                onClick={() => setSortBy(SortTypes.id)}
+                onClick={() => setSortBy(SortTypes.date)}
               >
             Clear
               </Button>

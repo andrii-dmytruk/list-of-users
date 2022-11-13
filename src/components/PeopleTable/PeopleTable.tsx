@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
+import SVG from 'react-inlinesvg';
 import { styled, withStyles } from '@mui/styles';
 import { Person } from '../../types/Person';
 
@@ -65,12 +66,18 @@ export const PeopleTable = React.memo(function PeopleTable({
           </TableRow>
         </StyledTableHead>
         <TableBody>
-          {people.map((person) => (
-            <StyledTableRow key={person.id}>
+          {people.map((person, i) => (
+            <StyledTableRow key={person.date}>
               <TableCell component="th" scope="person">
-                {person.id}
+                {i + 1}
               </TableCell>
-              <TableCell align="left">{person.avatar}</TableCell>
+              <TableCell align="left">
+                <SVG
+                  src={person.avatar}
+                  width={40}
+                  height="auto"
+                />
+              </TableCell>
               <TableCell align="left">{person.name}</TableCell>
               <TableCell align="left">{person.age}</TableCell>
               <TableCell align="left">{person.status}</TableCell>
