@@ -9,10 +9,10 @@ import './PeoplePage.scss';
 import { SortTypes } from '../../types/sortTypes';
 import { Person } from '../../types/Person';
 import { PeopleTable } from '../../components/PeopleTable';
-import { createPerson } from '../../helpers/createPerson';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { actions } from '../../redux/features/people';
 import { NavLink } from 'react-router-dom';
+
 
 
 export const PeoplePage = React.memo(function PeoplePage() {

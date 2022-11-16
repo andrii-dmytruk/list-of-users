@@ -20,10 +20,10 @@ export const PersonPage = React.memo(function PersonPage() {
   const people = useAppSelector(state => state.people);
 
   const [currentPerson, setCurrentPerson] = useState<Person | null>(null);
-  const [nameValue, setNameValue] = useState<string>('');
-  const [ageValue, setAgeValue] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-  const [nameError, setNameError] = useState<boolean>(false);
+  const [nameValue, setNameValue] = useState('');
+  const [ageValue, setAgeValue] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [nameError, setNameError] = useState(false);
 
   useEffect(() => {
     if (id.length) {

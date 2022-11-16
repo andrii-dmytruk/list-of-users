@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
 import TableCell from '@mui/material/TableCell';
@@ -16,7 +15,6 @@ import SVG from 'react-inlinesvg';
 import { styled, withStyles } from '@mui/styles';
 import { Person } from '../../types/Person';
 import { NavLink } from 'react-router-dom';
-
 
 type Props = {
   people: Person[];
