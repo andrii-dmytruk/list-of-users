@@ -67,7 +67,7 @@ export const PeopleTable = React.memo(function PeopleTable({
         </StyledTableHead>
         <TableBody>
           {people.map((person, i) => (
-            <StyledTableRow key={person.date}>
+            <StyledTableRow key={person.id}>
               <TableCell component="th" scope="person">
                 {i + 1}
               </TableCell>

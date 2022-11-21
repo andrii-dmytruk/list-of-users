@@ -4,23 +4,26 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 
-
 import './PeoplePage.scss';
 import { SortTypes } from '../../types/sortTypes';
 import { Person } from '../../types/Person';
 import { PeopleTable } from '../../components/PeopleTable';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { actions } from '../../redux/features/people';
+import { actions, fetchPeople } from '../../redux/features/people';
 import { NavLink } from 'react-router-dom';
-
 
 
 export const PeoplePage = React.memo(function PeoplePage() {
   const dispatch = useAppDispatch();
-  const sortedPeople = useAppSelector(state => state.people);
+  const { people: sortedPeople } = useAppSelector(state => state.people);
 
   const [sortBy, setSortBy] = useState<SortTypes>(SortTypes.date);
 
+  useEffect(() => {
+    if (!localStorage.getItem('people')) {
+      dispatch(fetchPeople());
+    } 
+  }, []);
 
   useEffect(() => {
     dispatch(actions.sort(sortBy));

@@ -17,7 +17,7 @@ export const PersonPage = React.memo(function PersonPage() {
   const { id = '' } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const people = useAppSelector(state => state.people);
+  const { people } = useAppSelector(state => state.people);
 
   const [currentPerson, setCurrentPerson] = useState<Person | null>(null);
   const [nameValue, setNameValue] = useState('');

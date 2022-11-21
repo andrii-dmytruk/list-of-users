@@ -10,7 +10,7 @@ const store = configureStore({
 store.subscribe(() => {
   const { people } = store.getState();
 
-  localStorage.setItem('people', JSON.stringify(people));
+  localStorage.setItem('people', JSON.stringify(people.people));
 });
 
 export default store;
